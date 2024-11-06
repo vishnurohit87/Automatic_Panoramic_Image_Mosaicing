@@ -10,7 +10,7 @@ def gaussian_kernel(size, sigma):
     g = np.exp(-(x**2 + y**2)/(2*sigma**2))
     return g / g.sum()
 
-def harris(I, N=500, **kwargs):
+def harris(I, N=100, **kwargs):
     """
     Harris corner detector.
     INPUT:
