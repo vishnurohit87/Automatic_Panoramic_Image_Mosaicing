@@ -3,16 +3,18 @@ from scipy import signal
 from scipy.ndimage import maximum_filter, generate_binary_structure
 import matplotlib.pyplot as plt
 
-def gaussian_kernel(size, sigma):
-    """Generate a 2D Gaussian kernel."""
-    size = int(size)
-    x, y = np.mgrid[-(size//2):(size//2)+1, -(size//2):(size//2)+1]
-    g = np.exp(-(x**2 + y**2)/(2*sigma**2))
-    return g / g.sum()
-
 def harris(I, N=100, **kwargs):
     """
     Harris corner detector.
+    This function implements a version of the Harris corner detector which
+    has the ability to calculate the eigenvalues of the gradient matrix
+    directly.  This is opposed to calculating the corner response function as
+    originally proposed by Harris in:
+
+    C. Harris and M. Stephens.  "A Combined Corner and Edge
+    Detector", Proceedings of the 4th Alvey Vision Conference,
+    Manchester, U.K. pgs 147-151, 1988
+    
     INPUT:
         I: grayscale image
     PARAMETERS:
@@ -161,3 +163,10 @@ def harris(I, N=100, **kwargs):
         plt.show()
 
     return ii, jj, mm
+
+def gaussian_kernel(size, sigma):
+    """Generate a 2D Gaussian kernel."""
+    size = int(size)
+    x, y = np.mgrid[-(size//2):(size//2)+1, -(size//2):(size//2)+1]
+    g = np.exp(-(x**2 + y**2)/(2*sigma**2))
+    return g / g.sum()
